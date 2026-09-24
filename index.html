@@ -1487,8 +1487,13 @@
                 <h3>El Baúl de los Recuerdos: Galería de Afiches & Fotos</h3>
                 <p>Selecciona una banda o local histórico para ver y descargar sus afiches, volantes y fotografías originales rescatadas de la movida rock en Falcón y Venezuela.</p>
                 
+                <!-- Buscador Directo del Baúl -->
+                <div style="max-width: 550px; margin: 22px auto 0; position: relative;">
+                    <input type="text" id="baul-search-input" class="archive-search" style="width: 100%; box-sizing: border-box; padding: 13px 22px; font-size: 14px; background: rgba(0,0,0,0.6); border: 1px solid var(--accent-red); box-shadow: 0 0 15px rgba(214,0,28,0.25);" placeholder="🔍 Buscar afiche, banda o local en el baúl..." oninput="handleBaulSearch(this.value)">
+                </div>
+
                 <!-- Botones de Acceso Rápido por Banda y Local -->
-                <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 18px;">
                     <span style="color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; margin-right: 6px;">Locales:</span>
                     <button class="year-pill" onclick="quickFilterArchive('Moe')">🍺 Moe's Bar (82)</button>
                     <button class="year-pill" onclick="quickFilterArchive('Tuvaru')">🎸 Tuvaru (17)</button>
@@ -1943,6 +1948,7 @@
         // 8. Filtro Rápido por Banda o Local desde El Baúl
         function quickFilterArchive(keyword) {
             const input = document.getElementById('archive-search-input');
+            const baulInput = document.getElementById('baul-search-input');
             const anchor = document.getElementById('archivo');
             
             // Restablecer año a TODOS para buscar en toda la historia
@@ -1952,15 +1958,30 @@
             const todosPill = document.querySelector('#archive-year-filters .year-pill');
             if (todosPill) todosPill.classList.add('active');
 
-            if (input) {
-                input.value = keyword;
-            }
+            if (input) input.value = keyword;
+            if (baulInput) baulInput.value = keyword;
+
             archiveCurrentPage = 1;
             applyArchiveFilters();
 
             if (anchor) {
                 anchor.scrollIntoView({ behavior: 'smooth' });
             }
+        }
+
+        function handleBaulSearch(query) {
+            const input = document.getElementById('archive-search-input');
+            if (input) input.value = query;
+
+            // Restablecer año a TODOS para buscar en toda la historia
+            archiveCurrentYear = 'TODOS';
+            const pills = document.querySelectorAll('.year-pill');
+            pills.forEach(p => p.classList.remove('active'));
+            const todosPill = document.querySelector('#archive-year-filters .year-pill');
+            if (todosPill) todosPill.classList.add('active');
+
+            archiveCurrentPage = 1;
+            applyArchiveFilters();
         }
 
         // 9. Lightbox para Fotos y Afiches
