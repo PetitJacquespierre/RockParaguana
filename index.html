@@ -175,52 +175,69 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         nav a:hover, nav a.active {
             color: var(--accent-red);
         }
 
-        .btn-instagram {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: #fff !important;
-            padding: 7px 15px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+        /* Menú Desplegable (Dropdown) */
+        .nav-item-dropdown {
+            position: relative;
         }
 
-        .btn-instagram:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(220, 39, 67, 0.5);
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(12, 12, 16, 0.96);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(214, 0, 28, 0.35);
+            border-radius: 8px;
+            padding: 8px 0;
+            min-width: 170px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            list-style: none;
         }
 
-        .btn-facebook {
-            background: #1877F2;
-            color: #fff !important;
-            padding: 7px 15px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+        .nav-dropdown-menu li {
+            padding: 0;
         }
 
-        .btn-facebook:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.5);
-        }
-
-        .social-nav-group {
+        .nav-dropdown-menu a {
             display: flex;
             align-items: center;
             gap: 10px;
+            padding: 9px 18px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #d0d0dc;
+            transition: all 0.2s ease;
+        }
+
+        .nav-dropdown-menu a:hover {
+            background: rgba(214, 0, 28, 0.15);
+            color: #fff;
+            padding-left: 22px;
+        }
+
+        .nav-item-dropdown:hover .nav-dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-caret {
+            font-size: 9px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item-dropdown:hover .dropdown-caret {
+            transform: rotate(180deg);
+            color: var(--accent-red);
         }
 
         /* Botón hamburguesa móvil */
@@ -1367,13 +1384,19 @@
         <nav>
             <ul>
                 <li><a href="#inicio" class="active">Inicio</a></li>
-                <li><a href="#historia">Nuestra Historia</a></li>
-                <li><a href="#eventos">Eventos & Fotos</a></li>
-                <li><a href="#baul">Baúl de Recuerdos</a></li>
+                <li><a href="#eventos">Noticias & Conciertos</a></li>
+                <li><a href="#baul">El Baúl</a></li>
                 <li><a href="#archivo">Archivo</a></li>
-                <li class="social-nav-group">
-                    <a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer" class="btn-instagram">Instagram</a>
-                    <a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer" class="btn-facebook">Facebook</a>
+                <li><a href="#historia">Historia</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="javascript:void(0)">
+                        Redes <span class="dropdown-caret">&#9662;</span>
+                    </a>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer">📸 Instagram</a></li>
+                        <li><a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer">👍 Facebook</a></li>
+                        <li><a href="http://rockparaguana.blogspot.com" target="_blank" rel="noopener noreferrer">🌐 Blogspot</a></li>
+                    </ul>
                 </li>
             </ul>
         </nav>
@@ -1388,13 +1411,17 @@
     <!-- Menú Drawer Móvil -->
     <div class="mobile-nav-drawer" id="mobile-drawer">
         <a href="#inicio" onclick="closeMobileMenu()">Inicio</a>
+        <a href="#eventos" onclick="closeMobileMenu()">Noticias & Conciertos</a>
+        <a href="#baul" onclick="closeMobileMenu()">El Baúl (Fotos & Flyers)</a>
+        <a href="#archivo" onclick="closeMobileMenu()">Archivo Histórico</a>
         <a href="#historia" onclick="closeMobileMenu()">Nuestra Historia</a>
-        <a href="#eventos" onclick="closeMobileMenu()">Eventos & Fotos</a>
-        <a href="#baul" onclick="closeMobileMenu()">Baúl de Recuerdos</a>
-        <a href="#archivo" onclick="closeMobileMenu()">Archivo</a>
-        <div class="mobile-social-group">
-            <a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer" class="btn-instagram">Seguir en Instagram</a>
-            <a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer" class="btn-facebook">Página de Facebook</a>
+        
+        <div style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px;">
+            <p style="color: var(--accent-red); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;">Nuestras Redes</p>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer" style="font-size: 14px; padding: 6px 0; border: none; color: #d0d0dc;">📸 Instagram (@rockparaguana)</a>
+                <a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer" style="font-size: 14px; padding: 6px 0; border: none; color: #d0d0dc;">👍 Facebook (Rock.Paraguana)</a>
+            </div>
         </div>
     </div>
 
@@ -1445,8 +1472,8 @@
             </div>
         </div>
 
-        <div class="section-header">
-            <p class="section-subtitle">Últimas Coberturas</p>
+        <div class="section-header" id="conciertos">
+            <p class="section-subtitle">Últimas Coberturas & Noticias</p>
             <h2 class="section-title">En Vivo & En Escena</h2>
         </div>
 
