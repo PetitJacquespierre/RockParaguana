@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paraguaná | La Casa del Rock Falconiano</title>
+    <meta name="description" content="Portal oficial de Rock Paraguaná. Noticias, eventos, cobertura fotográfica y memoria histórica de la escena rock y metal en el estado Falcón.">
+    <meta name="theme-color" content="#0a0a0c">
+    
+    <!-- Favicon & App Icons -->
+    <link rel="icon" href="img/isotipo_rp.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="img/isotipo_rp.jpg">
+    <!-- Soporte PWA Descargable en móviles y desktop -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Rock Paraguaná">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #08080a;
+            --bg-card: #121216;
+            --bg-card-hover: #1a1a22;
+            --accent-red: #d6001c;
+            --accent-red-glow: rgba(214, 0, 28, 0.4);
+            --text-main: #f0f0f2;
+            --text-muted: #9595a2;
+            --border-subtle: #24242e;
+            --font-head: 'Oswald', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ==================== SPLASH SCREEN ==================== */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #1b0205 0%, #060608 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        #splash-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            display: none !important;
+        }
+
+        .splash-pua {
+            width: 170px;
+            height: auto;
+            max-height: 170px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 35px var(--accent-red-glow)) drop-shadow(0 15px 30px rgba(0,0,0,0.9));
+            animation: pulse-pua 2s infinite ease-in-out;
+        }
+
+        .splash-title {
+            margin-top: 24px;
+            font-family: var(--font-head);
+            font-size: 28px;
+            letter-spacing: 6px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .splash-bar {
+            width: 180px;
+            height: 3px;
+            background: #222;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+        }
+
+        .splash-bar-progress {
+            width: 50%;
+            height: 100%;
+            background: var(--accent-red);
+            box-shadow: 0 0 10px var(--accent-red);
+            position: absolute;
+            animation: loading-bar 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse-pua {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 25px var(--accent-red)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 50px var(--accent-red)); }
+        }
+
+        @keyframes loading-bar {
+            0% { left: -50%; }
+            100% { left: 100%; }
+        }
+
+        /* ==================== NAVBAR ==================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(8, 8, 10, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            z-index: 100;
+            padding: 10px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .brand-logo img {
+            width: 42px;
+            height: auto;
+            max-height: 42px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(214, 0, 28, 0.5));
+        }
+
+        .brand-logo-text {
+            font-family: var(--font-head);
+            font-size: 22px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .brand-logo-text span {
+            color: var(--accent-red);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-red);
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #fff !important;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-instagram:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 39, 67, 0.5);
+        }
+
+        .btn-facebook {
+            background: #1877F2;
+            color: #fff !important;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-facebook:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.5);
+        }
+
+        .social-nav-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-footer-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .social-footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #c5c5d2;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .social-footer-link:hover {
+            color: #fff;
+            border-color: var(--accent-red);
+            background: rgba(214, 0, 28, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* ==================== HERO SECTION (VIDEO / AMBIENTE ROCK) ==================== */
+        .hero {
+            position: relative;
+            height: 90vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        /* Video de fondo o póster fallback */
+        .hero-media {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.45) contrast(1.15);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(8,8,10,0.6) 0%, rgba(8,8,10,0.4) 50%, #08080a 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+            margin-top: 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(214, 0, 28, 0.15);
+            border: 1px solid var(--accent-red);
+            color: #ff4d64;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-family: var(--font-head);
+            font-size: clamp(38px, 6vw, 68px);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+        }
+
+        .hero-title span {
+            color: var(--accent-red);
+            background: linear-gradient(180deg, #ff3b52 0%, #b30018 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: clamp(15px, 2vw, 18px);
+            color: #c5c5d0;
+            max-width: 650px;
+            margin: 0 auto 35px;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--accent-red);
+            color: #fff;
+            padding: 14px 34px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 6px 25px rgba(214, 0, 28, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #ff1a35;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 35px rgba(214, 0, 28, 0.7);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ==================== SECCIÓN DE EVENTOS & GALERÍA ==================== */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 90px 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-subtitle {
+            color: var(--accent-red);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: 38px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        /* Grid de Fotos Recientes */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card-event {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .card-event:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-red);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+        }
+
+        .card-thumb {
+            width: 100%;
+            height: 230px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-event:hover .card-thumb img {
+            transform: scale(1.08);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-date {
+            color: var(--accent-red);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-family: var(--font-head);
+            font-size: 22px;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .card-text {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        .card-link:hover {
+            color: var(--accent-red);
+        }
+
+        .btn-admin-trigger {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(214, 0, 28, 0.5);
+            color: #ff5568;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-admin-trigger:hover {
+            background: var(--accent-red);
+            color: #fff;
+            border-style: solid;
+        }
+
+        /* Modal Panel de Control Rápido */
+        .admin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .admin-modal.open {
+            display: flex;
+        }
+
+        .admin-box {
+            background: #15151c;
+            border: 1px solid var(--border-subtle);
+            border-top: 3px solid var(--accent-red);
+            border-radius: 16px;
+            max-width: 550px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .admin-close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            color: #888;
+            font-size: 22px;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .admin-close:hover {
+            color: #fff;
+        }
+
+        .admin-box h3 {
+            font-family: var(--font-head);
+            font-size: 24px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .admin-box p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ddd;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            background: #09090c;
+            border: 1px solid #30303e;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 13.5px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-red);
+        }
+
+        .btn-submit-post {
+            width: 100%;
+            background: linear-gradient(45deg, #e6683c, #dc2743, #bc1888);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(220, 39, 67, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-submit-post:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(220, 39, 67, 0.6);
+        }
+
+        /* ==================== SECCIÓN BIENVENIDA & HISTORIA ==================== */
+        .history-section {
+            background: radial-gradient(circle at top right, rgba(214, 0, 28, 0.08) 0%, transparent 60%), #0c0c10;
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin-bottom: 70px;
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .history-logo-badge {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px dashed rgba(214, 0, 28, 0.4);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .history-logo-badge img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 6px 20px rgba(0,0,0,0.8));
+            transition: transform 0.3s ease;
+        }
+
+        .history-logo-badge:hover img {
+            transform: scale(1.03);
+        }
+
+        .history-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--accent-red);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .history-content h2 {
+            font-family: var(--font-head);
+            font-size: 32px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .history-content h2 span {
+            color: var(--accent-red);
+        }
+
+        .history-content p {
+            color: #b5b5c2;
+            font-size: 14.5px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .history-quote {
+            border-left: 3px solid var(--accent-red);
+            padding-left: 16px;
+            font-style: italic;
+            color: #e0e0ea;
+            margin-top: 20px;
+            font-size: 13.5px;
+        }
+
+        @media (max-width: 900px) {
+            .history-section {
+                grid-template-columns: 1fr;
+                padding: 35px 24px;
+            }
+        }
+
+        /* ==================== SECCIÓN HISTÓRICA BLOGGER ==================== */
+        .archive-banner {
+            background: linear-gradient(135deg, #181822 0%, #0d0d12 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 45px 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .archive-info h3 {
+            font-family: var(--font-head);
+            font-size: 26px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .archive-info p {
+            color: var(--text-muted);
+            max-width: 600px;
+            font-size: 14px;
+        }
+
+        /* ==================== BAÚL DE LOS RECUERDOS (DESCARGAS) ==================== */
+        .vault-section {
+            background: linear-gradient(180deg, #111116 0%, #08080a 100%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 50px 35px;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vault-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+        }
+
+        .vault-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .vault-header h3 {
+            font-family: var(--font-head);
+            font-size: 30px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .vault-header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            max-width: 650px;
+            margin: 8px auto 0;
+        }
+
+        .vault-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .vault-card {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .vault-card:hover {
+            border-color: var(--accent-red);
+            transform: translateY(-4px);
+            background: rgba(214, 0, 28, 0.04);
+        }
+
+        .vault-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+            color: var(--accent-red);
+        }
+
+        .vault-card h4 {
+            font-family: var(--font-head);
+            font-size: 18px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .vault-card p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-download:hover {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: #fff;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 60px 24px 30px;
+            text-align: center;
+            background: #050507;
+        }
+
+        .footer-logo {
+            width: 70px;
+            height: auto;
+            margin: 0 auto 16px;
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(214, 0, 28, 0.4));
+        }
+
+        .footer-brand {
+            font-family: var(--font-head);
+            font-size: 22px;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+
+        .footer-tag {
+            color: #555562;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-tag a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        .footer-tag a:hover {
+            color: var(--accent-red);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 18px;
+            }
+            nav ul {
+                display: none; /* En siguientes fases agregaremos el menú drawer móvil */
+            }
+            .hero-title {
+                font-size: 38px;
+            }
+            .archive-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== SPLASH SCREEN ==================== -->
+    <div id="splash-screen">
+        <img src="img/isotipo_rp_transparente.png" alt="Rock Paraguaná" class="splash-pua">
+        <h2 class="splash-title">Rock Paraguaná</h2>
+        <div class="splash-bar">
+            <div class="splash-bar-progress"></div>
+        </div>
+    </div>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <header>
+        <a href="#" class="brand-logo">
+            <img src="img/isotipo_rp_transparente.png" alt="RP">
+            <div class="brand-logo-text">ROCK <span>PARAGUANÁ</span></div>
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#historia">Nuestra Historia</a></li>
+                <li><a href="#eventos">Eventos & Fotos</a></li>
+                <li><a href="#baul">Baúl de Recuerdos</a></li>
+                <li><a href="#archivo">Archivo</a></li>
+                <li class="social-nav-group">
+                    <a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer" class="btn-instagram">Instagram</a>
+                    <a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer" class="btn-facebook">Facebook</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ==================== HERO CON VIDEO O FONDO DE CONCIERTO ==================== -->
+    <section class="hero" id="inicio">
+        <!-- Imagen de concierto con manos de rock y tarima con humo y luces -->
+        <img src="img/hero_concert.jpg" alt="Concierto Rock Paraguaná" class="hero-media">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <span class="hero-badge">Portal Oficial & Archivo Cultural</span>
+            <h1 class="hero-title">La Voz del Rock en <span>Falcón</span></h1>
+            <p class="hero-desc">Documentando los escenarios, la energía y las bandas que han hecho vibrar a Paraguaná y Venezuela por más de una década.</p>
+            <div class="hero-actions">
+                <a href="#eventos" class="btn-primary">Ver Cobertura & Fotos</a>
+                <a href="#archivo" class="btn-secondary">Explorar Archivo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SECCIÓN DE EVENTOS & FOTOGRAFÍA ==================== -->
+    <section class="section-container" id="eventos">
+        <!-- ==================== BIENVENIDA & NUESTRA HISTORIA ==================== -->
+        <div class="history-section" id="historia">
+            <div class="history-logo-badge">
+                <img src="img/logo_original_2012.png" alt="Primer Logo de Rock Paraguaná 2012">
+                <div>
+                    <span class="history-tag">Identidad Original &bull; Circa 2012</span>
+                </div>
+            </div>
+            <div class="history-content">
+                <h2>El Legado que Rescatamos del <span>Olvido</span></h2>
+                <p>
+                    La historia de este portal comenzó a principios de los 2000s (2003–2004) en manos de <strong>Marvin Primera</strong> bajo el dominio original <em>rockparaguana.net</em>. Tiempo después, la página pasó a manos de mi hermano <strong>Jackson Petit</strong>, quien la adquirió junto a una gran colección de discos y CDs con respaldos de grabaciones, fotos y música inédita de las bandas pioneras de la época.
+                </p>
+                <p>
+                    Aquel valioso material quedó engavetado por años hasta que, un 10 de abril en mi cumpleaños, decidí tomar la iniciativa y no dejar morir esa llama. Sin herramientas modernas ni inteligencia artificial, diseñé por mi cuenta el primer logo tributo inspirado en la tipografía de <strong>Pantera</strong>, y salí a la calle con cámara en mano a registrar la movida.
+                </p>
+                <p>
+                    Con el paso del tiempo y el crecimiento de la página, se fueron sumando valiosos <strong>corresponsales</strong> y colaboradores que le metieron el pecho a las coberturas en locales memorables como <strong>Tuvaru, Moe's Rock Bar</strong> y festivales a lo largo de Falcón. Pero el impacto de <strong>Rock Paraguaná</strong> no se quedó solo en fronteras locales o regionales: trascendió con fuerza al plano <strong>nacional</strong>, cubriendo grandes conciertos, giras y festivales en toda Venezuela. En este despliegue nacional ha sido fundamental el trabajo de <strong>Kafran Sibira</strong>, quien ha estado firme en las trincheras viajando y reportando eventos de envergadura para mantener el portal como un referente del rock venezolano.
+                </p>
+                <p>
+                    Aunque hoy las responsabilidades diarias no nos permitan estar en cada tarima todos los fines de semana, seguimos aquí, firmes, manteniendo viva la memoria del rock falconiano y abriendo el camino para la nueva generación de relevo.
+                </p>
+                <div class="history-quote">
+                    "Más de 20 años de historia, desde los CDs de Marvin Primera hasta el nuevo portal web. El rock en Paraguaná jamás se rinde."
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <p class="section-subtitle">Últimas Coberturas</p>
+            <h2 class="section-title">En Vivo & En Escena</h2>
+        </div>
+
+        <div class="gallery-grid" id="gallery-container">
+            <!-- Los posts agregados desde Instagram aparecerán automáticamente aquí al inicio -->
+            <!-- Tarjeta 1: Nuevo Evento de Rock -->
+            <article class="card-event">
+                <div class="card-thumb">
+                    <img src="img/hero_concert.jpg" alt="Evento Rock">
+                    <span class="card-badge">Fotografía HD</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-date">Septiembre 2026</p>
+                    <h3 class="card-title">En Vivo: Noche de Descarga</h3>
+                    <p class="card-text">Set fotográfico exclusivo capturando la energía, la distorsión y el público en tarima. Disfruta de la galería completa en alta definición.</p>
+                    <a href="#eventos" class="card-link">Ver Galería Completa &rarr;</a>
+                </div>
+            </article>
+
+            <!-- Tarjeta 2: Bandas Regionales -->
+            <article class="card-event">
+                <div class="card-thumb">
+                    <img src="img/logo_vertical.jpg" alt="Rock Paraguaná Badge">
+                    <span class="card-badge">Especial</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-date">Movimiento Rock</p>
+                    <h3 class="card-title">Nueva Era: Rock Paraguaná</h3>
+                    <p class="card-text">Evolución de identidad, nuevo portal y preparación especial hacia el gran reencuentro de fin de año. El rock no se detiene.</p>
+                    <a href="#inicio" class="card-link">Conocer Más &rarr;</a>
+                </div>
+            </article>
+        </div>
+
+        <!-- ==================== EL BAÚL DE LOS RECUERDOS (DESCARGAS) ==================== -->
+        <section class="vault-section" id="baul">
+            <div class="vault-header">
+                <h3>El Baúl de los Recuerdos</h3>
+                <p>Archivos históricos rescatados de los CDs originales de los 2000s, maquetas inéditas, temas de bandas pioneras de Falcón y afiches para descargar libremente.</p>
+            </div>
+
+            <div class="vault-grid">
+                <div class="vault-card">
+                    <div>
+                        <div class="vault-icon">🎵</div>
+                        <h4>Música & Demos Inéditos</h4>
+                        <p>Grabaciones en vivo y pistas de bandas que tocaron en Moe's, Tuvaru y festivales regionales en Falcón.</p>
+                    </div>
+                    <a href="#" class="btn-download" onclick="alert('Próximamente disponible para descarga directa en la nube'); return false;">Descargar Audio (Próximamente)</a>
+                </div>
+
+                <div class="vault-card">
+                    <div>
+                        <div class="vault-icon">📸</div>
+                        <h4>Álbum Fotográfico 2004–2015</h4>
+                        <p>Galerías completas de toques íntimos, público de la vieja guardia y presentaciones históricas.</p>
+                    </div>
+                    <a href="#" class="btn-download" onclick="alert('Próximamente disponible para descarga directa'); return false;">Descargar Pack Fotos</a>
+                </div>
+
+                <div class="vault-card">
+                    <div>
+                        <div class="vault-icon">🎸</div>
+                        <h4>Afiches & Flyers de Colección</h4>
+                        <p>El arte gráfico de los conciertos de rock que marcaron época en Punto Fijo y Coro.</p>
+                    </div>
+                    <a href="#" class="btn-download" onclick="alert('Próximamente disponible para descarga directa'); return false;">Descargar Flyers</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Banner del Archivo Histórico -->
+        <div class="archive-banner" id="archivo">
+            <div class="archive-info">
+                <h3>Memoria Histórica (2012 - 2017)</h3>
+                <p>Más de 500 bandas, conciertos, afiches y crónicas rescatadas directamente del blog original de Blogspot. Todo el legado en un solo lugar.</p>
+            </div>
+            <a href="http://rockparaguana.blogspot.com" target="_blank" class="btn-secondary">Ir a Blogspot Antiguo</a>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="footer-logo">
+            <img src="img/isotipo_rp_transparente.png" alt="Rock Paraguaná">
+        </div>
+        <h4 class="footer-brand">Rock Paraguaná</h4>
+        <p class="footer-copy">Más de una década apoyando el talento nacional y regional.</p>
+        <div class="social-footer-group">
+            <a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer" class="social-footer-link">
+                📸 Instagram (@rockparaguana)
+            </a>
+            <a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer" class="social-footer-link">
+                👍 Facebook (Rock.Paraguana)
+            </a>
+        </div>
+        <p class="footer-tag">Desarrollado con pasión por <a href="https://growstudioweb.vercel.app" target="_blank">Grow Studio</a> &bull; Paraguaná, Venezuela</p>
+    </footer>
+
+    <!-- ==================== MODAL PUBLICACIÓN RÁPIDA INSTAGRAM ==================== -->
+    <div id="admin-modal" class="admin-modal">
+        <div class="admin-box">
+            <button class="admin-close" onclick="closeAdminModal()">&times;</button>
+            <h3>Publicar Cobertura desde Instagram</h3>
+            <p>Pega el enlace de cualquier publicación o carrete de Instagram. El sistema lo vinculará automáticamente a la portada con su flyer y descripción.</p>
+
+            <form id="insta-form" onsubmit="handleInstaSubmit(event)">
+                <div class="form-group">
+                    <label for="insta-url">Enlace del Post en Instagram</label>
+                    <input type="url" id="insta-url" class="form-input" placeholder="https://www.instagram.com/p/..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="post-title">Título del Evento / Banda</label>
+                    <input type="text" id="post-title" class="form-input" placeholder="Ej: Gran Descarga Rock en Moe's" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="post-desc">Breve Reseña o Detalle (Opcional)</label>
+                    <input type="text" id="post-desc" class="form-input" placeholder="Ej: Fotos en vivo de la presentación...">
+                </div>
+
+                <div class="form-group">
+                    <label for="post-img">URL de Imagen / Flyer (Opcional, por defecto usa la tarima de rock)</label>
+                    <input type="url" id="post-img" class="form-input" placeholder="https://... o deja vacío para usar imagen estándar">
+                </div>
+
+                <button type="submit" class="btn-submit-post">🚀 Publicar en la Web Ahora</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script de Instagram Embed API oficial -->
+    <script async src="//www.instagram.com/embed.js"></script>
+
+    <!-- Scripts de la Aplicación -->
+    <script>
+        // 1. Quitar Splash Screen de forma garantizada e instantánea
+        function dismissSplash() {
+            const splash = document.getElementById('splash-screen');
+            if (splash && !splash.classList.contains('fade-out')) {
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    splash.classList.add('fade-out');
+                }, 400);
+            }
+        }
+
+        // Se ejecuta apenas el HTML esté listo (no espera fuentes pesadas ni scripts externos)
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(dismissSplash, 350);
+            renderStoredPosts();
+            checkSecretAccess();
+        });
+
+        // Seguro adicional por si DOMContentLoaded ya pasó
+        setTimeout(dismissSplash, 800);
+
+        // 2. Acceso Secreto mediante URL (#rockp o ?rockp) protegido por Clave
+        // Ejemplo de uso: Tu entras a rockparaguana.vercel.app/#rockp
+        function checkSecretAccess() {
+            const hash = window.location.hash.toLowerCase();
+            const search = window.location.search.toLowerCase();
+
+            if (hash === '#rockp' || search.includes('rockp')) {
+                // Solicitar clave de seguridad
+                promptAdminPassword();
+            }
+        }
+
+        // También se puede activar discretamente haciendo 3 clics seguidos en la púa del footer
+        let clickCount = 0;
+        let clickTimer;
+        document.querySelector('.footer-logo').addEventListener('click', () => {
+            clickCount++;
+            clearTimeout(clickTimer);
+            if (clickCount >= 3) {
+                clickCount = 0;
+                promptAdminPassword();
+            } else {
+                clickTimer = setTimeout(() => { clickCount = 0; }, 800);
+            }
+        });
+
+        // Verificación de clave (por defecto 'rock2026', la puedes cambiar cuando quieras)
+        const ADMIN_PASS = 'rock2026';
+
+        function promptAdminPassword() {
+            const pass = prompt('🔐 Ingrese la clave de administración de Rock Paraguaná:');
+            if (pass === ADMIN_PASS) {
+                openAdminModal();
+            } else if (pass !== null) {
+                alert('❌ Clave incorrecta. Acceso denegado.');
+            }
+        }
+
+        // 3. Funciones del Modal
+        function openAdminModal() {
+            document.getElementById('admin-modal').classList.add('open');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.remove('open');
+            // Limpiar el hash de la url para que no quede expuesto
+            if (window.location.hash === '#rockp') {
+                history.replaceState(null, null, ' ');
+            }
+        }
+
+        // Cerrar modal al hacer clic afuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('admin-modal');
+            if (event.target === modal) {
+                closeAdminModal();
+            }
+        };
+
+        // 4. Procesar y guardar el post
+        function handleInstaSubmit(e) {
+            e.preventDefault();
+            const url = document.getElementById('insta-url').value.trim();
+            const title = document.getElementById('post-title').value.trim();
+            const desc = document.getElementById('post-desc').value.trim() || 'Cobertura fotográfica disponible en nuestro canal oficial.';
+            const img = document.getElementById('post-img').value.trim() || 'img/hero_concert.jpg';
+
+            const newPost = {
+                id: Date.now(),
+                url: url,
+                title: title,
+                desc: desc,
+                img: img,
+                date: new Date().toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
+            };
+
+            // Guardar en almacenamiento del navegador (localStorage)
+            const savedPosts = JSON.parse(localStorage.getItem('rp_custom_posts') || '[]');
+            savedPosts.unshift(newPost); // Al inicio para que sea la primera
+            localStorage.setItem('rp_custom_posts', JSON.stringify(savedPosts));
+
+            // Renderizar de inmediato y cerrar modal
+            renderStoredPosts();
+            closeAdminModal();
+            document.getElementById('insta-form').reset();
+            alert('¡Publicación agregada con éxito! Ya aparece en la portada.');
+        }
+
+        // 5. Renderizar posts guardados en la grilla
+        function renderStoredPosts() {
+            const container = document.getElementById('gallery-container');
+            const savedPosts = JSON.parse(localStorage.getItem('rp_custom_posts') || '[]');
+            
+            // Eliminar solo los elementos dinámicos previos (manteniendo las tarjetas fijas base)
+            const dynamicCards = document.querySelectorAll('.dynamic-insta-card');
+            dynamicCards.forEach(c => c.remove());
+
+            savedPosts.forEach(post => {
+                const article = document.createElement('article');
+                article.className = 'card-event dynamic-insta-card';
+                article.innerHTML = `
+                    <div class="card-thumb">
+                        <img src="${post.img}" alt="${post.title}" onerror="this.src='img/hero_concert.jpg'">
+                        <span class="card-badge" style="background: linear-gradient(45deg, #f09433, #dc2743);">📸 Instagram</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-date">${post.date}</p>
+                        <h3 class="card-title">${post.title}</h3>
+                        <p class="card-text">${post.desc}</p>
+                        <a href="${post.url}" target="_blank" rel="noopener noreferrer" class="card-link" style="color: #ff4d64;">
+                            Ver en Instagram &rarr;
+                        </a>
+                    </div>
+                `;
+                container.prepend(article); // Insertar arriba de todo
+            });
+        }
+    </script>
+</body>
+</html>
