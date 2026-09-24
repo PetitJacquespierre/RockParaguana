@@ -223,6 +223,99 @@
             gap: 10px;
         }
 
+        /* Botón hamburguesa móvil */
+        .btn-mobile-menu {
+            display: none;
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: #fff;
+            padding: 8px 12px;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 101;
+            transition: all 0.3s;
+        }
+
+        .btn-mobile-menu span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .btn-mobile-menu.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+            background-color: var(--accent-red);
+        }
+
+        .btn-mobile-menu.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .btn-mobile-menu.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+            background-color: var(--accent-red);
+        }
+
+        /* Menú Drawer lateral para móviles */
+        .mobile-nav-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 82%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(10, 10, 14, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(214, 0, 28, 0.3);
+            z-index: 99;
+            padding: 120px 30px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mobile-nav-drawer.open {
+            right: 0;
+        }
+
+        .mobile-nav-drawer a {
+            color: #e0e0ea;
+            text-decoration: none;
+            font-family: var(--font-head);
+            font-size: 19px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .mobile-nav-drawer a:hover, .mobile-nav-drawer a.active {
+            color: var(--accent-red);
+            padding-left: 8px;
+        }
+
+        .mobile-social-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .mobile-social-group a {
+            font-family: var(--font-body);
+            font-size: 13px;
+            text-align: center;
+            border-bottom: none;
+            padding: 10px 18px;
+        }
+
         .social-footer-group {
             display: flex;
             justify-content: center;
@@ -927,14 +1020,17 @@
 
         @media (max-width: 768px) {
             header {
-                padding: 10px 18px;
+                padding: 10px 16px;
             }
             .brand-logo img {
-                height: 64px;
-                max-width: 280px;
+                height: 70px;
+                max-width: 260px;
             }
             nav ul {
-                display: none; /* En siguientes fases agregaremos el menú drawer móvil */
+                display: none;
+            }
+            .btn-mobile-menu {
+                display: flex;
             }
             .hero-title {
                 font-size: 38px;
@@ -976,7 +1072,26 @@
                 </li>
             </ul>
         </nav>
+
+        <button class="btn-mobile-menu" id="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
+
+    <!-- Menú Drawer Móvil -->
+    <div class="mobile-nav-drawer" id="mobile-drawer">
+        <a href="#inicio" onclick="closeMobileMenu()">Inicio</a>
+        <a href="#historia" onclick="closeMobileMenu()">Nuestra Historia</a>
+        <a href="#eventos" onclick="closeMobileMenu()">Eventos & Fotos</a>
+        <a href="#baul" onclick="closeMobileMenu()">Baúl de Recuerdos</a>
+        <a href="#archivo" onclick="closeMobileMenu()">Archivo</a>
+        <div class="mobile-social-group">
+            <a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer" class="btn-instagram">Seguir en Instagram</a>
+            <a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer" class="btn-facebook">Página de Facebook</a>
+        </div>
+    </div>
 
     <!-- ==================== HERO CON VIDEO O FONDO DE CONCIERTO ==================== -->
     <section class="hero" id="inicio">
@@ -1303,6 +1418,32 @@
                 container.prepend(article); // Insertar arriba de todo
             });
         }
+
+        // 6. Funcionalidad del Menú Móvil (Hamburguesa / Drawer)
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobile-drawer');
+            const toggle = document.getElementById('mobile-toggle');
+            drawer.classList.toggle('open');
+            toggle.classList.toggle('open');
+        }
+
+        function closeMobileMenu() {
+            const drawer = document.getElementById('mobile-drawer');
+            const toggle = document.getElementById('mobile-toggle');
+            if (drawer) drawer.classList.remove('open');
+            if (toggle) toggle.classList.remove('open');
+        }
+
+        // Cerrar menú móvil al hacer clic fuera de él
+        document.addEventListener('click', (e) => {
+            const drawer = document.getElementById('mobile-drawer');
+            const toggle = document.getElementById('mobile-toggle');
+            if (drawer && drawer.classList.contains('open')) {
+                if (!drawer.contains(e.target) && !toggle.contains(e.target)) {
+                    closeMobileMenu();
+                }
+            }
+        });
     </script>
 </body>
 </html>
