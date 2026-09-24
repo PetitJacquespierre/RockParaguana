@@ -1047,18 +1047,58 @@
         .archive-post-card {
             background: #0d0d12;
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            padding: 16px;
+            border-radius: 12px;
+            padding: 14px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+            overflow: hidden;
         }
 
         .archive-post-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(214, 0, 28, 0.5);
-            background: #111118;
+            transform: translateY(-4px);
+            border-color: rgba(214, 0, 28, 0.6);
+            background: #12121a;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+
+        .archive-post-img-box {
+            width: 100%;
+            height: 190px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+            background: #060608;
+            cursor: pointer;
+        }
+
+        .archive-post-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .archive-post-card:hover .archive-post-img-box img {
+            transform: scale(1.06);
+        }
+
+        .archive-post-badge-flyer {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ff4d64;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .archive-post-date {
@@ -1086,13 +1126,23 @@
             flex-grow: 1;
         }
 
+        .archive-card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
         .archive-post-link {
             color: #ff4d64;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 700;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             display: inline-flex;
             align-items: center;
             gap: 4px;
@@ -1100,6 +1150,93 @@
 
         .archive-post-link:hover {
             color: #fff;
+        }
+
+        .archive-btn-view-flyer {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .archive-btn-view-flyer:hover {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+
+        /* Modal para ver fotos y flyers en grande */
+        .flyer-lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .flyer-lightbox.open {
+            display: flex;
+        }
+
+        .flyer-lightbox-box {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: #0b0b0e;
+            border: 1px solid var(--accent-red);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 50px rgba(214, 0, 28, 0.35);
+        }
+
+        .flyer-lightbox-img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        .flyer-lightbox-title {
+            color: #fff;
+            font-family: var(--font-head);
+            font-size: 16px;
+            letter-spacing: 1px;
+            margin-top: 12px;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .flyer-lightbox-close {
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            background: var(--accent-red);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            font-size: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
         .archive-pagination {
@@ -1344,11 +1481,30 @@
             </article>
         </div>
 
-        <!-- ==================== EL BAÚL DE LOS RECUERDOS (DESCARGAS) ==================== -->
+        <!-- ==================== EL BAÚL DE LOS RECUERDOS (GALERÍA & DESCARGAS) ==================== -->
         <section class="vault-section" id="baul">
             <div class="vault-header">
-                <h3>El Baúl de los Recuerdos</h3>
-                <p>Archivos históricos rescatados de los CDs originales de los 2000s, maquetas inéditas, temas de bandas pioneras de Falcón y afiches para descargar libremente.</p>
+                <h3>El Baúl de los Recuerdos: Galería de Afiches & Fotos</h3>
+                <p>Selecciona una banda o local histórico para ver y descargar sus afiches, volantes y fotografías originales rescatadas de la movida rock en Falcón y Venezuela.</p>
+                
+                <!-- Botones de Acceso Rápido por Banda y Local -->
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px;">
+                    <span style="color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; margin-right: 6px;">Locales:</span>
+                    <button class="year-pill" onclick="quickFilterArchive('Moe')">🍺 Moe's Bar (82)</button>
+                    <button class="year-pill" onclick="quickFilterArchive('Tuvaru')">🎸 Tuvaru (17)</button>
+                    <button class="year-pill" onclick="quickFilterArchive('Bar-Ril')">🍻 Bar-Ril</button>
+                    <button class="year-pill" onclick="quickFilterArchive('Nuestro Bar')">🎶 Nuestro Bar</button>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px;">
+                    <span style="color: var(--text-muted); font-size: 12px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; margin-right: 6px;">Bandas:</span>
+                    <button class="year-pill" onclick="quickFilterArchive('Maskhera')">⚡ Maskhera</button>
+                    <button class="year-pill" onclick="quickFilterArchive('Blasphemy')">🔥 Blasphemy (25)</button>
+                    <button class="year-pill" onclick="quickFilterArchive('Gillman')">🤘 Gillman (25)</button>
+                    <button class="year-pill" onclick="quickFilterArchive('Cuarto Magno')">⚡ Cuarto Magno</button>
+                    <button class="year-pill" onclick="quickFilterArchive('Etnica')">💀 Etnica</button>
+                    <button class="year-pill" onclick="quickFilterArchive('Luz Blanca')">⚡ Luz Blanca</button>
+                    <button class="year-pill" onclick="quickFilterArchive('Electrocirkus')">🎸 Electrocirkus</button>
+                </div>
             </div>
 
             <div class="vault-grid">
@@ -1367,7 +1523,7 @@
                         <h4>Álbum Fotográfico Histórico</h4>
                         <p>Galerías completas de toques íntimos, público de la vieja guardia y presentaciones rescatadas de Blogspot.</p>
                     </div>
-                    <a href="descargas/RockParaguana_Pack_Flyers_Fotos_Historicas.zip" download="RockParaguana_Fotos_Historicas.zip" class="btn-download">⬇️ Descargar Álbum Completo (.ZIP)</a>
+                    <a href="descargas/RockParaguana_Pack_Flyers_Fotos_Historicas.zip" download="RockParaguana_Fotos_Historicas.zip" class="btn-download">⬇️ Descargar Lote Completo (.ZIP)</a>
                 </div>
 
                 <div class="vault-card">
@@ -1471,6 +1627,19 @@
 
                 <button type="submit" class="btn-submit-post">🚀 Publicar en la Web Ahora</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal Lightbox para Ampliar Flyers y Fotos -->
+    <div id="flyer-lightbox" class="flyer-lightbox" onclick="closeFlyerLightbox(event)">
+        <div class="flyer-lightbox-box" onclick="event.stopPropagation()">
+            <button class="flyer-lightbox-close" onclick="closeFlyerLightbox()">&times;</button>
+            <img src="" id="flyer-lightbox-img" alt="Flyer Rock Paraguaná" class="flyer-lightbox-img">
+            <h4 id="flyer-lightbox-title" class="flyer-lightbox-title"></h4>
+            <div style="display: flex; gap: 10px; margin-top: 14px;">
+                <a href="" id="flyer-lightbox-download" download="flyer_rock_paraguana.jpg" target="_blank" class="btn-download" style="padding: 7px 16px; font-size: 11px;">⬇️ Descargar Esta Foto</a>
+                <a href="" id="flyer-lightbox-postlink" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding: 7px 16px; font-size: 11px;">Ver Nota Original</a>
+            </div>
         </div>
     </div>
 
@@ -1727,18 +1896,36 @@
                     </div>
                 `;
             } else {
-                container.innerHTML = currentSlice.map(item => `
-                    <article class="archive-post-card">
-                        <div>
-                            <span class="archive-post-date">${item.date || item.year}</span>
-                            <h4 class="archive-post-title">${item.title}</h4>
-                            <p class="archive-post-snippet">${item.snippet}</p>
+                container.innerHTML = currentSlice.map((item, idx) => {
+                    const hasImg = (item.image && item.image.startsWith('http'));
+                    const imgThumb = hasImg ? `
+                        <div class="archive-post-img-box" onclick="openFlyerLightbox('${encodeURIComponent(item.image)}', '${encodeURIComponent(item.title)}', '${encodeURIComponent(item.url)}')">
+                            <img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                            <span class="archive-post-badge-flyer">📸 Flyer / Foto</span>
                         </div>
-                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="archive-post-link">
-                            Leer publicación completa &rarr;
-                        </a>
-                    </article>
-                `).join('');
+                    ` : '';
+
+                    return `
+                        <article class="archive-post-card">
+                            ${imgThumb}
+                            <div>
+                                <span class="archive-post-date">${item.date || item.year}</span>
+                                <h4 class="archive-post-title">${item.title}</h4>
+                                <p class="archive-post-snippet">${item.snippet}</p>
+                            </div>
+                            <div class="archive-card-actions">
+                                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="archive-post-link">
+                                    Leer crónica &rarr;
+                                </a>
+                                ${hasImg ? `
+                                    <button class="archive-btn-view-flyer" onclick="openFlyerLightbox('${encodeURIComponent(item.image)}', '${encodeURIComponent(item.title)}', '${encodeURIComponent(item.url)}')">
+                                        🔍 Ver Flyer
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </article>
+                    `;
+                }).join('');
             }
 
             pageInfo.textContent = `Página ${archiveCurrentPage} de ${totalPages} (${total} registros)`;
@@ -1751,6 +1938,51 @@
             renderArchiveResults();
             const anchor = document.getElementById('archivo');
             if (anchor) anchor.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 8. Filtro Rápido por Banda o Local desde El Baúl
+        function quickFilterArchive(keyword) {
+            const input = document.getElementById('archive-search-input');
+            const anchor = document.getElementById('archivo');
+            
+            // Restablecer año a TODOS para buscar en toda la historia
+            archiveCurrentYear = 'TODOS';
+            const pills = document.querySelectorAll('.year-pill');
+            pills.forEach(p => p.classList.remove('active'));
+            const todosPill = document.querySelector('#archive-year-filters .year-pill');
+            if (todosPill) todosPill.classList.add('active');
+
+            if (input) {
+                input.value = keyword;
+            }
+            archiveCurrentPage = 1;
+            applyArchiveFilters();
+
+            if (anchor) {
+                anchor.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // 9. Lightbox para Fotos y Afiches
+        function openFlyerLightbox(encImg, encTitle, encUrl) {
+            const imgUrl = decodeURIComponent(encImg);
+            const title = decodeURIComponent(encTitle);
+            const postUrl = decodeURIComponent(encUrl);
+
+            document.getElementById('flyer-lightbox-img').src = imgUrl;
+            document.getElementById('flyer-lightbox-title').textContent = title;
+            document.getElementById('flyer-lightbox-download').href = imgUrl;
+            document.getElementById('flyer-lightbox-postlink').href = postUrl;
+
+            document.getElementById('flyer-lightbox').classList.add('open');
+        }
+
+        function closeFlyerLightbox(e) {
+            if (e && e.target && e.target.id !== 'flyer-lightbox' && !e.target.classList.contains('flyer-lightbox-close')) {
+                return;
+            }
+            const modal = document.getElementById('flyer-lightbox');
+            if (modal) modal.classList.remove('open');
         }
     </script>
 </body>
