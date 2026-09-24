@@ -139,28 +139,21 @@
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
             text-decoration: none;
-            color: #fff;
         }
 
         .brand-logo img {
-            width: 42px;
-            height: auto;
-            max-height: 42px;
+            height: 48px;
+            width: auto;
+            max-width: 260px;
             object-fit: contain;
-            filter: drop-shadow(0 0 10px rgba(214, 0, 28, 0.5));
+            filter: drop-shadow(0 0 15px rgba(214, 0, 28, 0.4));
+            transition: transform 0.2s ease, filter 0.2s ease;
         }
 
-        .brand-logo-text {
-            font-family: var(--font-head);
-            font-size: 22px;
-            letter-spacing: 2px;
-            font-weight: 700;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .brand-logo:hover img {
+            transform: scale(1.03);
+            filter: drop-shadow(0 0 22px rgba(214, 0, 28, 0.7));
         }
 
         .brand-logo-text span {
@@ -962,9 +955,8 @@
 
     <!-- ==================== NAVBAR ==================== -->
     <header>
-        <a href="#" class="brand-logo">
-            <img src="img/isotipo_rp_transparente.png" alt="RP">
-            <div class="brand-logo-text">ROCK <span>PARAGUANÁ</span></div>
+        <a href="#" class="brand-logo" title="Rock Paraguaná">
+            <img src="img/logo_horizontal_transparente.png" alt="Rock Paraguaná">
         </a>
 
         <nav>
