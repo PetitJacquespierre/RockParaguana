@@ -184,60 +184,44 @@
             color: var(--accent-red);
         }
 
-        /* Menú Desplegable (Dropdown) */
-        .nav-item-dropdown {
-            position: relative;
-        }
-
-        .nav-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: rgba(12, 12, 16, 0.96);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(214, 0, 28, 0.35);
-            border-radius: 8px;
-            padding: 8px 0;
-            min-width: 170px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            list-style: none;
-        }
-
-        .nav-dropdown-menu li {
-            padding: 0;
-        }
-
-        .nav-dropdown-menu a {
+        /* Iconos de Redes Sociales estilo Pa'l Toque */
+        .nav-social-icons {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 9px 18px;
-            font-size: 12px;
-            letter-spacing: 1px;
-            color: #d0d0dc;
-            transition: all 0.2s ease;
+            gap: 12px;
+            margin-left: 10px;
+            padding-left: 15px;
+            border-left: 1px solid rgba(255, 255, 255, 0.12);
         }
 
-        .nav-dropdown-menu a:hover {
-            background: rgba(214, 0, 28, 0.15);
-            color: #fff;
-            padding-left: 22px;
+        .nav-social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            color: #b0b0c0;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.25s ease;
         }
 
-        .nav-item-dropdown:hover .nav-dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-caret {
-            font-size: 9px;
+        .nav-social-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
             transition: transform 0.2s ease;
         }
 
-        .nav-item-dropdown:hover .dropdown-caret {
-            transform: rotate(180deg);
-            color: var(--accent-red);
+        .nav-social-link:hover {
+            color: #ffffff;
+            background: var(--accent-red);
+            box-shadow: 0 0 12px rgba(214, 0, 28, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .nav-social-link:hover svg {
+            transform: scale(1.1);
         }
 
         /* Botón hamburguesa móvil */
@@ -1388,15 +1372,16 @@
                 <li><a href="#baul">El Baúl</a></li>
                 <li><a href="#archivo">Archivo</a></li>
                 <li><a href="#historia">Historia</a></li>
-                <li class="nav-item-dropdown">
-                    <a href="javascript:void(0)">
-                        Redes <span class="dropdown-caret">&#9662;</span>
+                <li class="nav-social-icons">
+                    <a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer" class="nav-social-link" title="Instagram @rockparaguana">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
-                    <ul class="nav-dropdown-menu">
-                        <li><a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer">📸 Instagram</a></li>
-                        <li><a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer">👍 Facebook</a></li>
-                        <li><a href="http://rockparaguana.blogspot.com" target="_blank" rel="noopener noreferrer">🌐 Blogspot</a></li>
-                    </ul>
+                    <a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer" class="nav-social-link" title="Facebook Rock.Paraguana">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="http://rockparaguana.blogspot.com" target="_blank" rel="noopener noreferrer" class="nav-social-link" title="Blogspot Histórico">
+                        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 7.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5v-1zm8 9h-5c-.83 0-1.5-.67-1.5-1.5v-1c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5z"/></svg>
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -1412,15 +1397,22 @@
     <div class="mobile-nav-drawer" id="mobile-drawer">
         <a href="#inicio" onclick="closeMobileMenu()">Inicio</a>
         <a href="#eventos" onclick="closeMobileMenu()">Noticias & Conciertos</a>
-        <a href="#baul" onclick="closeMobileMenu()">El Baúl (Fotos & Flyers)</a>
-        <a href="#archivo" onclick="closeMobileMenu()">Archivo Histórico</a>
-        <a href="#historia" onclick="closeMobileMenu()">Nuestra Historia</a>
+        <a href="#baul" onclick="closeMobileMenu()">El Baúl</a>
+        <a href="#archivo" onclick="closeMobileMenu()">Archivo</a>
+        <a href="#historia" onclick="closeMobileMenu()">Historia</a>
         
-        <div style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px;">
-            <p style="color: var(--accent-red); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;">Nuestras Redes</p>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-                <a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer" style="font-size: 14px; padding: 6px 0; border: none; color: #d0d0dc;">📸 Instagram (@rockparaguana)</a>
-                <a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer" style="font-size: 14px; padding: 6px 0; border: none; color: #d0d0dc;">👍 Facebook (Rock.Paraguana)</a>
+        <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;">
+            <p style="color: var(--accent-red); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Síguenos</p>
+            <div style="display: flex; gap: 12px;">
+                <a href="https://www.instagram.com/rockparaguana/" target="_blank" rel="noopener noreferrer" class="nav-social-link" title="Instagram @rockparaguana">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/Rock.Paraguana" target="_blank" rel="noopener noreferrer" class="nav-social-link" title="Facebook Rock.Paraguana">
+                    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="http://rockparaguana.blogspot.com" target="_blank" rel="noopener noreferrer" class="nav-social-link" title="Blogspot Histórico">
+                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 7.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5v-1zm8 9h-5c-.83 0-1.5-.67-1.5-1.5v-1c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5v1c0 .83-.67 1.5-1.5 1.5z"/></svg>
+                </a>
             </div>
         </div>
     </div>
