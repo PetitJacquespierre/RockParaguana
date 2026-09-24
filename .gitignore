@@ -1,4 +1,5 @@
 # Backups pesados locales (no necesarios en repositorio web público)
 backup_blogger/
 *.zip
+!descargas/*.zip
 *.py
