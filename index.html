@@ -966,6 +966,174 @@
             color: #fff;
         }
 
+        /* ==================== EXPLORADOR DEL ARCHIVO HISTÓRICO ==================== */
+        .archive-explorer-container {
+            margin-top: 35px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .archive-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .archive-search {
+            flex: 1;
+            min-width: 250px;
+            padding: 11px 16px;
+            background: #07070a;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            color: #fff;
+            font-size: 13.5px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .archive-search:focus {
+            border-color: var(--accent-red);
+        }
+
+        .archive-year-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .year-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #c5c5d0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .year-pill:hover, .year-pill.active {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: #fff;
+            box-shadow: 0 0 12px rgba(214, 0, 28, 0.4);
+        }
+
+        .archive-results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .archive-results-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .archive-results-grid::-webkit-scrollbar-thumb {
+            background: #333340;
+            border-radius: 4px;
+        }
+
+        .archive-post-card {
+            background: #0d0d12;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .archive-post-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(214, 0, 28, 0.5);
+            background: #111118;
+        }
+
+        .archive-post-date {
+            color: var(--accent-red);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .archive-post-title {
+            font-family: var(--font-head);
+            font-size: 15.5px;
+            color: #fff;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .archive-post-snippet {
+            color: var(--text-muted);
+            font-size: 12.5px;
+            line-height: 1.45;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+
+        .archive-post-link {
+            color: #ff4d64;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .archive-post-link:hover {
+            color: #fff;
+        }
+
+        .archive-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .archive-btn-page {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .archive-btn-page:hover:not(:disabled) {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+
+        .archive-btn-page:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
         /* ==================== FOOTER ==================== */
         footer {
             border-top: 1px solid var(--border-subtle);
@@ -1213,13 +1381,40 @@
             </div>
         </section>
 
-        <!-- Banner del Archivo Histórico -->
+        <!-- Archivo Histórico Interactivo de Publicaciones Blogspot -->
         <div class="archive-banner" id="archivo">
             <div class="archive-info">
-                <h3>Memoria Histórica (2012 - 2017)</h3>
-                <p>Más de 500 bandas, conciertos, afiches y crónicas rescatadas directamente del blog original de Blogspot. Todo el legado en un solo lugar.</p>
+                <h3>Memoria Histórica &bull; Más de 1.100 Publicaciones</h3>
+                <p>Rescatadas directamente de la base de datos original (2012–2020). Explora crónicas, afiches, toques y coberturas históricas de bandas regionales y nacionales.</p>
             </div>
-            <a href="http://rockparaguana.blogspot.com" target="_blank" class="btn-secondary">Ir a Blogspot Antiguo</a>
+            <a href="http://rockparaguana.blogspot.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Visitar Blogspot Original</a>
+        </div>
+
+        <div class="archive-explorer-container">
+            <div class="archive-controls">
+                <input type="text" id="archive-search-input" class="archive-search" placeholder="🔍 Buscar por banda, evento, ciudad (ej: Maskhera, Punto Fijo, Moe's, Maracay...)" oninput="handleArchiveFilter()">
+                <div class="archive-year-pills" id="archive-year-filters">
+                    <button class="year-pill active" onclick="filterArchiveByYear('TODOS', this)">Todos (1104)</button>
+                    <button class="year-pill" onclick="filterArchiveByYear('2020', this)">2020</button>
+                    <button class="year-pill" onclick="filterArchiveByYear('2019', this)">2019</button>
+                    <button class="year-pill" onclick="filterArchiveByYear('2017', this)">2017</button>
+                    <button class="year-pill" onclick="filterArchiveByYear('2016', this)">2016</button>
+                    <button class="year-pill" onclick="filterArchiveByYear('2015', this)">2015</button>
+                    <button class="year-pill" onclick="filterArchiveByYear('2014', this)">2014</button>
+                    <button class="year-pill" onclick="filterArchiveByYear('2013', this)">2013</button>
+                    <button class="year-pill" onclick="filterArchiveByYear('2012', this)">2012</button>
+                </div>
+            </div>
+
+            <div class="archive-results-grid" id="archive-results">
+                <!-- Se inyectan dinámicamente con JavaScript -->
+            </div>
+
+            <div class="archive-pagination">
+                <button class="archive-btn-page" id="btn-page-prev" onclick="changeArchivePage(-1)" disabled>&larr; Anteriores</button>
+                <span id="archive-page-info" style="color: var(--text-muted); font-size: 12.5px; font-weight: 600;">Página 1 de 1</span>
+                <button class="archive-btn-page" id="btn-page-next" onclick="changeArchivePage(1)">Siguientes &rarr;</button>
+            </div>
         </div>
     </section>
 
@@ -1269,13 +1464,18 @@
                     <input type="url" id="post-img" class="form-input" placeholder="https://... o deja vacío para usar imagen estándar">
                 </div>
 
+                <div class="form-group">
+                    <label for="post-date">Fecha de la Publicación (Opcional, permite poner fecha anterior)</label>
+                    <input type="date" id="post-date" class="form-input">
+                </div>
+
                 <button type="submit" class="btn-submit-post">🚀 Publicar en la Web Ahora</button>
             </form>
         </div>
     </div>
 
-    <!-- Script de Instagram Embed API oficial -->
-    <script async src="//www.instagram.com/embed.js"></script>
+    <!-- Datos Históricos de Blogger Extraídos -->
+    <script src="js/posts_data.js"></script>
 
     <!-- Scripts de la Aplicación -->
     <script>
@@ -1296,6 +1496,7 @@
             setTimeout(dismissSplash, 350);
             renderStoredPosts();
             checkSecretAccess();
+            initArchiveExplorer();
         });
 
         // Seguro adicional por si DOMContentLoaded ya pasó
@@ -1367,6 +1568,17 @@
             const title = document.getElementById('post-title').value.trim();
             const desc = document.getElementById('post-desc').value.trim() || 'Cobertura fotográfica disponible en nuestro canal oficial.';
             const img = document.getElementById('post-img').value.trim() || 'img/hero_concert.jpg';
+            const customDateInput = document.getElementById('post-date').value;
+            
+            let formattedDate;
+            if (customDateInput) {
+                // Si el usuario especificó una fecha pasada o personalizada (YYYY-MM-DD)
+                const parts = customDateInput.split('-');
+                const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                formattedDate = d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+            } else {
+                formattedDate = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+            }
 
             const newPost = {
                 id: Date.now(),
@@ -1374,7 +1586,7 @@
                 title: title,
                 desc: desc,
                 img: img,
-                date: new Date().toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
+                date: formattedDate
             };
 
             // Guardar en almacenamiento del navegador (localStorage)
@@ -1444,6 +1656,102 @@
                 }
             }
         });
+
+        // 7. Funcionalidad del Archivo Histórico Interactivo
+        let archiveCurrentYear = 'TODOS';
+        let archiveCurrentPage = 1;
+        const ARCHIVE_PAGE_SIZE = 12;
+        let archiveFilteredList = [];
+
+        function initArchiveExplorer() {
+            if (typeof RP_HISTORICAL_POSTS === 'undefined' || !Array.isArray(RP_HISTORICAL_POSTS)) {
+                return;
+            }
+            archiveFilteredList = RP_HISTORICAL_POSTS;
+            renderArchiveResults();
+        }
+
+        function filterArchiveByYear(year, btn) {
+            archiveCurrentYear = year;
+            archiveCurrentPage = 1;
+            
+            // Activar botón seleccionado
+            const pills = document.querySelectorAll('.year-pill');
+            pills.forEach(p => p.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            applyArchiveFilters();
+        }
+
+        function handleArchiveFilter() {
+            archiveCurrentPage = 1;
+            applyArchiveFilters();
+        }
+
+        function applyArchiveFilters() {
+            if (typeof RP_HISTORICAL_POSTS === 'undefined') return;
+
+            const search = document.getElementById('archive-search-input').value.toLowerCase().trim();
+
+            archiveFilteredList = RP_HISTORICAL_POSTS.filter(post => {
+                const matchYear = (archiveCurrentYear === 'TODOS' || post.year === archiveCurrentYear);
+                const matchSearch = (!search || post.title.toLowerCase().includes(search) || post.snippet.toLowerCase().includes(search));
+                return matchYear && matchSearch;
+            });
+
+            renderArchiveResults();
+        }
+
+        function renderArchiveResults() {
+            const container = document.getElementById('archive-results');
+            const pageInfo = document.getElementById('archive-page-info');
+            const btnPrev = document.getElementById('btn-page-prev');
+            const btnNext = document.getElementById('btn-page-next');
+
+            if (!container) return;
+
+            const total = archiveFilteredList.length;
+            const totalPages = Math.max(1, Math.ceil(total / ARCHIVE_PAGE_SIZE));
+
+            if (archiveCurrentPage > totalPages) archiveCurrentPage = totalPages;
+
+            const start = (archiveCurrentPage - 1) * ARCHIVE_PAGE_SIZE;
+            const end = start + ARCHIVE_PAGE_SIZE;
+            const currentSlice = archiveFilteredList.slice(start, end);
+
+            if (currentSlice.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: var(--text-muted);">
+                        <p style="font-size: 16px; margin-bottom: 8px;">No se encontraron publicaciones con los términos buscados.</p>
+                        <p style="font-size: 13px;">Prueba buscando otra palabra clave o selecciona 'Todos'.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = currentSlice.map(item => `
+                    <article class="archive-post-card">
+                        <div>
+                            <span class="archive-post-date">${item.date || item.year}</span>
+                            <h4 class="archive-post-title">${item.title}</h4>
+                            <p class="archive-post-snippet">${item.snippet}</p>
+                        </div>
+                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="archive-post-link">
+                            Leer publicación completa &rarr;
+                        </a>
+                    </article>
+                `).join('');
+            }
+
+            pageInfo.textContent = `Página ${archiveCurrentPage} de ${totalPages} (${total} registros)`;
+            btnPrev.disabled = (archiveCurrentPage <= 1);
+            btnNext.disabled = (archiveCurrentPage >= totalPages);
+        }
+
+        function changeArchivePage(delta) {
+            archiveCurrentPage += delta;
+            renderArchiveResults();
+            const anchor = document.getElementById('archivo');
+            if (anchor) anchor.scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
